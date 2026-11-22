@@ -1,0 +1,10 @@
+resolution,split,n_images,seconds,ms_per_image,processor,n_processes,date
+28,train,11959,270.65,22.631,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+28,val,1709,38.524,22.542,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+28,test,3415,82.185,24.066,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+64,train,11959,323.707,27.068,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+64,val,1709,45.209,26.453,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+64,test,3415,90.561,26.518,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+128,train,11959,737.1,61.636,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+128,val,1709,108.586,63.538,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
+128,test,3415,213.857,62.623,"AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",1,2026-11-22
