@@ -1,0 +1,20 @@
+# Random search for logistic regression on the handcrafted features.
+# Fixed settings (max_iter, L2 penalty, no class weighting) live in src/classical.py.
+model: LogisticRegression
+resolutions: [28, 64, 128]
+features: cache/features_bloodmnist{resolution}.npz
+splits:
+  fit: train
+  score: val
+tuning_seed: 0
+budget: 20
+sweep:
+  method: random
+  metric:
+    name: val_macro_f1
+    goal: maximize
+  parameters:
+    C:
+      distribution: log_uniform_values
+      min: 0.0001
+      max: 100

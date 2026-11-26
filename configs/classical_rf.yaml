@@ -1,0 +1,26 @@
+# Random search for the random forest on the handcrafted features.
+# Fixed settings (n_jobs, no class weighting) live in src/classical.py.
+model: RandomForest
+resolutions: [28, 64, 128]
+features: cache/features_bloodmnist{resolution}.npz
+splits:
+  fit: train
+  score: val
+tuning_seed: 0
+budget: 20
+sweep:
+  method: random
+  metric:
+    name: val_macro_f1
+    goal: maximize
+  parameters:
+    n_estimators:
+      distribution: int_uniform
+      min: 100
+      max: 800
+    max_depth:
+      values: [null, 10, 20, 40]
+    max_features:
+      values: ["sqrt", "log2", 0.1, 0.25, 0.5, 0.75, null]
+    min_samples_leaf:
+      values: [1, 2, 4]
