@@ -1,0 +1,26 @@
+# Random search for ImageNet-pretrained ResNet-18, fine-tuned at the stored image size.
+# Fixed settings (AdamW, cosine schedule, plain cross-entropy, no augmentation) live in src/cnn.py.
+model: ResNet18
+resolutions: [128]
+splits:
+  fit: train
+  score: val
+epochs: 100
+tuning_seed: 0
+budget: 20
+sweep:
+  method: random
+  metric:
+    name: val_macro_f1
+    goal: maximize
+  parameters:
+    lr:
+      distribution: log_uniform_values
+      min: 0.00001
+      max: 0.001
+    weight_decay:
+      distribution: log_uniform_values
+      min: 0.000001
+      max: 0.01
+    batch_size:
+      values: [64, 128, 256]

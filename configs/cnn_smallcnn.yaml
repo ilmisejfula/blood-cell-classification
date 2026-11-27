@@ -1,0 +1,30 @@
+# Random search for the small CNN trained from scratch.
+# Fixed settings (AdamW, cosine schedule, plain cross-entropy, no augmentation) live in src/cnn.py.
+model: SmallCNN
+resolutions: [28, 64, 128]
+splits:
+  fit: train
+  score: val
+epochs: 100
+tuning_seed: 0
+budget: 20
+sweep:
+  method: random
+  metric:
+    name: val_macro_f1
+    goal: maximize
+  parameters:
+    lr:
+      distribution: log_uniform_values
+      min: 0.0001
+      max: 0.01
+    weight_decay:
+      distribution: log_uniform_values
+      min: 0.000001
+      max: 0.01
+    batch_size:
+      values: [64, 128, 256]
+    dropout:
+      distribution: uniform
+      min: 0.0
+      max: 0.5

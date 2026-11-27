@@ -46,7 +46,7 @@ RECALL_KEYS = [f"val_recall_{name.replace(' ', '_')}" for name in CLASS_SHORT_NA
 SCORE_COLUMNS = ("train_accuracy", "val_accuracy", "val_macro_f1", *RECALL_KEYS)
 TIME_COLUMNS = ("fit_seconds", "val_predict_ms_per_image")
 LR_COLUMNS = ("n_iter", "converged")
-DISTRIBUTION_TYPES = {"log_uniform_values": float, "int_uniform": int}
+DISTRIBUTION_TYPES = {"log_uniform_values": float, "uniform": float, "int_uniform": int}
 
 Config = dict[str, Any]
 
