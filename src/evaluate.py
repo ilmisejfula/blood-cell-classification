@@ -7,6 +7,7 @@ import math
 from pathlib import Path
 
 import numpy as np
+from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, recall_score
 
@@ -30,16 +31,14 @@ def compute_metrics(labels: np.ndarray, predictions: np.ndarray) -> dict[str, fl
     }
 
 
-def save_confusion_matrix(labels: np.ndarray, predictions: np.ndarray, path: Path) -> None:
-    """Save a confusion matrix PNG: counts in the cells, colour by row-normalized values."""
+def draw_confusion_matrix(ax: Axes, labels: np.ndarray, predictions: np.ndarray) -> None:
+    """Draw a confusion matrix on ax: counts in the cells, colour by row-normalized values."""
     counts = confusion_matrix(labels, predictions, labels=np.arange(N_CLASSES))
     totals = counts.sum(axis=1, keepdims=True)
     normalized = np.divide(counts, totals, out=np.zeros(counts.shape), where=totals > 0)
 
-    figure = Figure(figsize=(8, 7), layout="constrained")
-    ax = figure.subplots()
     image = ax.imshow(normalized, cmap="Blues", vmin=0, vmax=1)
-    figure.colorbar(image, ax=ax, label="fraction of true class")
+    ax.figure.colorbar(image, ax=ax, label="fraction of true class")
     ticks = np.arange(N_CLASSES)
     ax.set_xticks(ticks, CLASS_SHORT_NAMES, rotation=45, ha="right")
     ax.set_yticks(ticks, CLASS_SHORT_NAMES)
@@ -54,6 +53,12 @@ def save_confusion_matrix(labels: np.ndarray, predictions: np.ndarray, path: Pat
             va="center",
             color="white" if normalized[row, column] > 0.5 else "black",
         )
+
+
+def save_confusion_matrix(labels: np.ndarray, predictions: np.ndarray, path: Path) -> None:
+    """Save a confusion matrix PNG drawn by draw_confusion_matrix."""
+    figure = Figure(figsize=(8, 7), layout="constrained")
+    draw_confusion_matrix(figure.subplots(), labels, predictions)
     figure.savefig(path, dpi=DPI)
 
 
